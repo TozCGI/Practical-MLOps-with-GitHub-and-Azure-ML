@@ -22,7 +22,7 @@ from azure.ai.ml.sweep import (
 )
 
 # NOTE:  set your workspace name here!
-workspace_name="CSAzureML"
+workspace_name= "ml-ops-demo"
 # NOTE:  if you do not have a cpu-cluster already, we will create one
 # Alternatively, change the name to a CPU-based compute cluster
 cluster_name="cpu-cluster"
@@ -31,7 +31,11 @@ cluster_name="cpu-cluster"
 # For production runs as part of an MLOps configuration using
 # Azure DevOps or GitHub Actions, I recommend using the DefaultAzureCredential
 #ml_client=MLClient.from_config(DefaultAzureCredential())
-ml_client=MLClient.from_config(AzureCliCredential())
+ml_client=MLClient.from_config(DefaultAzureCredential())
+
+for ws in ml_client.workspaces.list():
+    print(ws.name, ":", ws.location, ":", ws.description)
+
 ws=ml_client.workspaces.get(workspace_name)
 
 # Make sure the compute cluster exists already
@@ -101,7 +105,7 @@ def build_pipeline(raw_data):
 
 def prepare_pipeline_job(cluster_name):
     # must have a dataset already in place
-    cpt_asset=ml_client.data.get(name="ChicagoParkingTicketsFolder", version="1")
+    cpt_asset=ml_client.data.get(name="ChicagoParkingTicketsFolder", version="2")
     raw_data=Input(type='uri_folder', path=cpt_asset.path)
     pipeline_job=build_pipeline(raw_data)
     # set pipeline level compute

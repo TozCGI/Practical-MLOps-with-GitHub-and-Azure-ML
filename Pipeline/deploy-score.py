@@ -32,7 +32,7 @@ from azure.ai.ml.sweep import (
 )
 
 # NOTE:  set your workspace name here!
-workspace_name="CSAzureML"
+workspace_name="ml-ops-demo"
 # NOTE:  if you do not have a cpu-cluster already, we will create one
 # Alternatively, change the name to a CPU-based compute cluster
 cluster_name="cpu-cluster"
@@ -40,8 +40,8 @@ cluster_name="cpu-cluster"
 # NOTE:  for local runs, I'm using the Azure CLI credential
 # For production runs as part of an MLOps configuration using
 # Azure DevOps or GitHub Actions, I recommend using the DefaultAzureCredential
-#ml_client=MLClient.from_config(DefaultAzureCredential())
-ml_client=MLClient.from_config(AzureCliCredential())
+ml_client=MLClient.from_config(DefaultAzureCredential())
+# ml_client=MLClient.from_config(AzureCliCredential())
 ws=ml_client.workspaces.get(workspace_name)
 
 # Make sure the compute cluster exists already
@@ -152,5 +152,10 @@ except Exception:
 # subscription owner!
 # Create a job to score the data
 job=ml_client.batch_endpoints.invoke(endpoint_name=endpoint.name, input=Input(type=AssetTypes.URI_FOLDER, path=chicago_dataset_unlabeled.path))
-# Wait for the job to finish and then access the data via the AML interface.
+
+### Where to find the output in AML
 # Jobs > chicago-parking-tickets-batch > {job name} > BatchScoring > Outputs + logs > Data outputs (show data outputs!)
+
+### Save the results locally
+ml_client.jobs.stream(job.name)
+ml_client.jobs.download(name=job.name, output_name= 'score', download_path='./')
