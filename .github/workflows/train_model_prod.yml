@@ -53,3 +53,5 @@ jobs:
         echo "Run training pipeline"
         # Run training pipeline
         python deploy-train.py
+env:
+  AZURE_CREDENTIALS: ${{secrets.AZURE_CREDENTIALS}}
