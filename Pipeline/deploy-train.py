@@ -38,16 +38,16 @@ secret_json = json.loads(os.environ['AZURE_CREDENTIALS'])
 print(f'HELLO -------------------------- {secret_json}')
 
 client_id = secret_json["clientId"]
-print(client_id)
 client_secret = secret_json["clientSecret"]
 tenant_id = secret_json["tenantId"]
+subscription_id = secret_json['subscriptionId']
 
 # print(client_id)
 # Create a DefaultAzureCredential object using environment variables
 credential = ClientSecretCredential(client_id=client_id, client_secret=client_secret, tenant_id=tenant_id)
 
 # Initialize the MLClient with the credential
-ml_client = MLClient(credential)
+ml_client = MLClient(credential, subscription_id)
 
 # Retrieve the workspace using the ml_client
 ws = ml_client.workspaces.get(workspace_name)
