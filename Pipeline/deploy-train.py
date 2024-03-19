@@ -36,6 +36,7 @@ client_id = os.environ.get("AZURE_CREDENTIALS.clientId")
 client_secret = os.environ.get("AZURE_CREDENTIALS.clientSecret")
 tenant_id = os.environ.get("AZURE_CREDENTIALS.tenantId")
 
+print(client_id)
 # Create a DefaultAzureCredential object using environment variables
 credential = ClientSecretCredential(client_id=client_id, client_secret=client_secret, tenant_id=tenant_id)
 
