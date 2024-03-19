@@ -11,7 +11,7 @@ from urllib.parse import urlencode
 import azure.ai.ml
 from azure.ai.ml import MLClient, Input, Output
 from azure.ai.ml.entities import Workspace, AmlCompute
-from azure.identity import DefaultAzureCredential, InteractiveBrowserCredential, AzureCliCredential
+from azure.identity import DefaultAzureCredential, InteractiveBrowserCredential, AzureCliCredential, ClientSecretCredential
 from azure.ai.ml.dsl import pipeline
 from azure.ai.ml import load_component
 from azure.ai.ml.constants import AssetTypes
@@ -31,9 +31,19 @@ cluster_name="cpu-cluster"
 # For production runs as part of an MLOps configuration using
 # Azure DevOps or GitHub Actions, I recommend using the DefaultAzureCredential
 #ml_client=MLClient.from_config(DefaultAzureCredential())
-ml_client=MLClient.from_config(DefaultAzureCredential())
 
-ws=ml_client.workspaces.get(workspace_name)
+client_id = os.environ.get("AZURE_CLIENT_ID")
+client_secret = os.environ.get("AZURE_CLIENT_SECRET")
+tenant_id = os.environ.get("AZURE_TENANT_ID")
+
+# Create a DefaultAzureCredential object using environment variables
+credential = DefaultAzureCredential(client_id=client_id, client_secret=client_secret, tenant_id=tenant_id)
+
+# Initialize the MLClient with the credential
+ml_client = MLClient(credential)
+
+# Retrieve the workspace using the ml_client
+ws = ml_client.workspaces.get(workspace_name)
 
 # Make sure the compute cluster exists already
 try:
