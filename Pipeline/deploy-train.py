@@ -34,13 +34,14 @@ cluster_name="cpu-cluster"
 #ml_client=MLClient.from_config(DefaultAzureCredential())
 
 # Retrieve the JSON-formatted secret from GitHub Secrets
-secret_json = json.loads(os.environ['AZURE_CREDENTIALS'])
+secret_json = os.environ['AZURE_CREDENTIALS']
+print(secret_json)
 
-client_id = secret_json["clientId"]
-client_secret = secret_json["client_secret"]
-tenant_id = secret_json["tenant_id"]
+# client_id = secret_json["clientId"]
+# client_secret = secret_json["client_secret"]
+# tenant_id = secret_json["tenant_id"]
 
-print(client_id)
+# print(client_id)
 # Create a DefaultAzureCredential object using environment variables
 credential = ClientSecretCredential(client_id=client_id, client_secret=client_secret, tenant_id=tenant_id)
 
