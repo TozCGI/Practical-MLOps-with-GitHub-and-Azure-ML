@@ -39,8 +39,8 @@ print(f'HELLO -------------------------- {secret_json}')
 
 client_id = secret_json["clientId"]
 print(client_id)
-client_secret = secret_json["client_secret"]
-tenant_id = secret_json["tenant_id"]
+client_secret = secret_json["clientSecret"]
+tenant_id = secret_json["tenantId"]
 
 # print(client_id)
 # Create a DefaultAzureCredential object using environment variables
