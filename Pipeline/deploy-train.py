@@ -37,9 +37,9 @@ cluster_name="cpu-cluster"
 secret_json = os.environ['AZURE_CREDENTIALS']
 print(f'HELLO -------------------------- {secret_json}')
 
-# client_id = secret_json["clientId"]
-# client_secret = secret_json["client_secret"]
-# tenant_id = secret_json["tenant_id"]
+client_id = secret_json["clientId"]
+client_secret = secret_json["client_secret"]
+tenant_id = secret_json["tenant_id"]
 
 # print(client_id)
 # Create a DefaultAzureCredential object using environment variables
