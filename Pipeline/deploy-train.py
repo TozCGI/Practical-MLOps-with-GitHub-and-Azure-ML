@@ -35,7 +35,7 @@ cluster_name="cpu-cluster"
 
 # Retrieve the JSON-formatted secret from GitHub Secrets
 secret_json = os.environ['AZURE_CREDENTIALS']
-print(secret_json)
+print(f'HELLO -------------------------- {secret_json}')
 
 # client_id = secret_json["clientId"]
 # client_secret = secret_json["client_secret"]
