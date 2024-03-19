@@ -32,9 +32,9 @@ cluster_name="cpu-cluster"
 # Azure DevOps or GitHub Actions, I recommend using the DefaultAzureCredential
 #ml_client=MLClient.from_config(DefaultAzureCredential())
 
-client_id = os.environ.get("AZURE_CLIENT_ID")
-client_secret = os.environ.get("AZURE_CLIENT_SECRET")
-tenant_id = os.environ.get("AZURE_TENANT_ID")
+client_id = os.environ.get("AZURE_CREDENTIALS.clientId")
+client_secret = os.environ.get("AZURE_CREDENTIALS.clientSecret")
+tenant_id = os.environ.get("AZURE_CREDENTIALS.tenantId")
 
 # Create a DefaultAzureCredential object using environment variables
 credential = ClientSecretCredential(client_id=client_id, client_secret=client_secret, tenant_id=tenant_id)
