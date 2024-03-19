@@ -33,9 +33,6 @@ cluster_name="cpu-cluster"
 #ml_client=MLClient.from_config(DefaultAzureCredential())
 ml_client=MLClient.from_config(DefaultAzureCredential())
 
-for ws in ml_client.workspaces.list():
-    print(ws.name, ":", ws.location, ":", ws.description)
-
 ws=ml_client.workspaces.get(workspace_name)
 
 # Make sure the compute cluster exists already
