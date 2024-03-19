@@ -24,7 +24,6 @@ jobs:
   deploy_ml_training_pipeline:
     name: PROD - Deploy the Training pipeline to Azure ML
     runs-on: ubuntu-latest
-    environment: Production
     steps:
     - name: Repo checkout
       uses: actions/checkout@v3
@@ -37,9 +36,7 @@ jobs:
     - name: Azure login
       uses: azure/login@v1
       with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
         enable-AzPSSession: true
     - name: Install and prepare Python
       uses: actions/setup-python@v4
@@ -52,7 +49,7 @@ jobs:
         python -m pip install -r requirements.txt
         echo "Creating config file"
         mkdir .azureml
-        echo -e "{ \"subscription_id\": \"${{ secrets.AZURE_SUBSCRIPTION_ID }}\", \"resource_group\": \"CSAzureML\", \"workspace_name\": \"CSAzureML\" }" > .azureml/config.json
+        echo -e "{ \"subscription_id\": \"${{ secrets.AZURE_CREDENTIALS.subscriptionId }}\", \"resource_group\": \"ml-ops-demo\", \"workspace_name\": \"ml-ops-demo\" }" > .azureml/config.json
         echo "Run training pipeline"
         # Run training pipeline
         python deploy-train.py
