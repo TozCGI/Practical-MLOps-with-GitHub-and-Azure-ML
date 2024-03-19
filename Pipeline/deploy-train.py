@@ -37,7 +37,7 @@ client_secret = os.environ.get("AZURE_CLIENT_SECRET")
 tenant_id = os.environ.get("AZURE_TENANT_ID")
 
 # Create a DefaultAzureCredential object using environment variables
-credential = DefaultAzureCredential(client_id=client_id, client_secret=client_secret, tenant_id=tenant_id)
+credential = ClientSecretCredential(client_id=client_id, client_secret=client_secret, tenant_id=tenant_id)
 
 # Initialize the MLClient with the credential
 ml_client = MLClient(credential)
