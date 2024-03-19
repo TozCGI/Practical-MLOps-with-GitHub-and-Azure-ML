@@ -7,6 +7,7 @@ import pandas as pd
 from random import randrange
 import urllib
 from urllib.parse import urlencode
+import json
 
 import azure.ai.ml
 from azure.ai.ml import MLClient, Input, Output
@@ -32,9 +33,12 @@ cluster_name="cpu-cluster"
 # Azure DevOps or GitHub Actions, I recommend using the DefaultAzureCredential
 #ml_client=MLClient.from_config(DefaultAzureCredential())
 
-client_id = os.environ.get("AZURE_CREDENTIALS.clientId")
-client_secret = os.environ.get("AZURE_CREDENTIALS.clientSecret")
-tenant_id = os.environ.get("AZURE_CREDENTIALS.tenantId")
+# Retrieve the JSON-formatted secret from GitHub Secrets
+secret_json = json.loads(os.environ['AZURE_CREDENTIALS'])
+
+client_id = secret_json["clientId"]
+client_secret = secret_json["client_secret"]
+tenant_id = secret_json["tenant_id"]
 
 print(client_id)
 # Create a DefaultAzureCredential object using environment variables
